@@ -1,36 +1,41 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 public class testCalculator {
+    Calculator calculations = null;
+    CalculatorOperations calculatorOperations = mock(CalculatorOperations.class);
+    @BeforeEach
+    void assigningObject(){
+        calculations = new Calculator(calculatorOperations);
+    }
+
     @Test
     void toTestSumOfTwoDoubleInputs(){
-        Calculator calc = new Calculator();
-        double expectedSum = 8.0;
-        double actualSum = calc.sum(4.0, 4.0);
-        assertEquals(expectedSum, actualSum);
+        when(calculatorOperations.sum(4.0,4.0)).thenReturn(8.0);
+        assertEquals(8.0,calculations.sum(4.0,4.0));
+        verify(calculatorOperations).sum(4.0,4.0);
     }
 
     @Test
     void toTestDifferenceOfTwoDoubleInputs(){
-        Calculator calc = new Calculator();
-        double expectedDiff = 2.0;
-        double actualDiff = calc.diff(6.0, 4.0);
-        assertEquals(expectedDiff, actualDiff);
+        when(calculatorOperations.difference(6.0,4.0)).thenReturn(2.0);
+        assertEquals(2.0,calculations.difference(6.0,4.0));
+        verify(calculatorOperations).difference(6.0,4.0);
     }
 
     @Test
     void toTestProductOfTwoDoubleInputs(){
-        Calculator calc = new Calculator();
-        double expectedProduct = 24.0;
-        double actualProduct = calc.product(6.0, 4.0);
-        assertEquals(expectedProduct, actualProduct);
+        when(calculatorOperations.product(6.0,4.0)).thenReturn(24.0);
+        assertEquals(24.0,calculations.product(6.0,4.0));
+        verify(calculatorOperations).product(6.0,4.0);
     }
 
     @Test
     void toTestQuotientOfTwoDoubleInputs(){
-        Calculator calc = new Calculator();
-        double expectedQuot = 6.0;
-        double actualQuot= calc.division(24.0, 4.0);
-        assertEquals(expectedQuot, actualQuot);
+        when(calculatorOperations.division(24.0,4.0)).thenReturn(6.0);
+        assertEquals(6.0,calculations.division(24.0,4.0));
+        verify(calculatorOperations).division(24.0,4.0);
     }
 }
